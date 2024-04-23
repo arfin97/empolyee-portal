@@ -2,6 +2,7 @@ package com.example.employee.portal.service;
 
 import com.example.employee.portal.domain.EmployeeDto;
 import com.example.employee.portal.entity.EmployeeEntity;
+import com.example.employee.portal.exceptions.RecordNotFound;
 import com.example.employee.portal.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,13 +38,15 @@ public class EmployeeService {
         Optional<EmployeeEntity> employeeOptional = employeeRepository.findById(id);
         EmployeeDto employeeDto = new EmployeeDto();
 
+        if(employeeOptional.isEmpty()) {
+            throw new RecordNotFound("Employee not found for the id: " + id);
+        }
+
         if (employeeOptional.isPresent()) {
             EmployeeEntity employeeEntity = employeeOptional.get();
             employeeDto.setName(employeeEntity.getName());
             employeeDto.setDesignation(employeeEntity.getDesignation());
             employeeDto.setPhoneNumber(employeeEntity.getPhoneNumber());
-        } else {
-            throw new RuntimeException("Employee not found for the id: " + id);
         }
 
         return employeeDto;
@@ -53,11 +54,6 @@ public class EmployeeService {
 
     //Update Employee API
     public EmployeeDto updateEmployee(Long id, EmployeeDto employeeDto) {
-        if(employeeDto == null) throw new RuntimeException("Employee details not found");
-
-        if(employeeDto.getName() == null) throw new RuntimeException("Employee name not found");
-        if(employeeDto.getDesignation() == null) throw new RuntimeException("Employee designation not found");
-        if(employeeDto.getPhoneNumber() == null) throw new RuntimeException("Employee phone number not found");
 
         Optional<EmployeeEntity> employeeOptional = employeeRepository.findById(id);
         EmployeeEntity employeeEntity;
