@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Page</title>
+    <link rel="stylesheet" th:href="@{/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}" type="text/css">
+    <script th:src="@{/script.js}"></script>
+</head>
+<body class="container">
+    <h1 th:text="${message}">Hello World</h1>
+    <button th:onclick="demo()">alert me</button>
+
+    <table class="table table-bordered border-primary">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Designation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee: ${employees}">
+            <td th:text="${employee.name}"></td>
+            <td th:text="${employee.phoneNumber}"></td>
+            <td th:text="${employee.designation}"></td>
+            <td th:if="${employee.designation == 'Admin'}"><button class="alert-danger">NUKE</button> </td>
+            <td th:unless="${employee.designation == 'Admin'}"><button class="alert-danger">DUKE</button> </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

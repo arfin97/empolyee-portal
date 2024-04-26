@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+    <!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hello World</title>
+        <link rel="stylesheet" th:href="@{/style.css}" type="text/css">
+        <link rel="stylesheet" th:href="@{/bootstrap.min.css}" type="text/css">
+
+    </head>
+    <body>
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">name</th>
+                <th scope="col">designation</th>
+                <th scope="col">phone number</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="employee : ${employees}">
+                <td th:text="${employee.name}">Mark</td>
+                <td th:text="${employee.designation}">Otto</td>
+                <td th:text="${employee.phoneNumber}">@mdo</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </body>
+    </html>

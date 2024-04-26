@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
     Optional<EmployeeEntity> findByName(String name);
     Optional<EmployeeEntity> findByNameAndDesignation(String name, String designation);
+
+    @Query("SELECT e FROM EmployeeEntity e WHERE e.phoneNumber = :phoneNumber")
+    Optional<EmployeeEntity> findByPhoneNumber(String phoneNumber);
 }

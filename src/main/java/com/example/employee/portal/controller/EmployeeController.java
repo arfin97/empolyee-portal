@@ -1,53 +1,27 @@
 package com.example.employee.portal.controller;
 
-
 import com.example.employee.portal.domain.EmployeeDto;
-import com.example.employee.portal.entity.EmployeeEntity;
-import com.example.employee.portal.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
-@RestController
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeService employeeService;
-
-    //Read API
-    @GetMapping("/employees")
-    public Page<EmployeeEntity> getAllEmployee(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "asc") String sortOrder) {
-        return employeeService.getAllEmployee(page, size, sortOrder);
+    @GetMapping("/hello")
+    public String hello(Model model) {
+        model.addAttribute("message", "Hello World!");
+        List<EmployeeDto> employees = new ArrayList<>();
+        employees.add(new EmployeeDto("John Doe", "Software Engineer", "1234567890"));
+        employees.add(new EmployeeDto("Jane Doe", "Software Engineer", "1234567890"));
+        employees.add(new EmployeeDto("Jane Doe", "Software Engineer", "1234567890"));
+        employees.add(new EmployeeDto("Jane Doe", "Software Engineer", "1234567890"));
+        employees.add(new EmployeeDto("Jane Doe", "Software Engineer", "1234567890"));
+        model.addAttribute("employees", employees);
+        return "helloworldview";
     }
 
-    //Read API
-    @GetMapping("/employees/{id}")
-    public EmployeeDto getEmployee(@PathVariable Long id) {
-        return employeeService.getEmployee(id);
-    }
-
-    //Read by name API
-    @GetMapping("/employees/by")
-    public EmployeeDto getEmployeeByName(@RequestParam String name) {
-        return employeeService.getEmployeeByName(name);
-    }
-
-
-    //Create API
-    @PostMapping("/employees")
-    public EmployeeDto createEmployee(@RequestBody EmployeeDto employeeDto) {
-        return employeeService.createEmployee(employeeDto);
-    }
-
-    //Update API
-    @PutMapping("/employees/{id}")
-    public EmployeeDto updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDto) {
-        return employeeService.updateEmployee(id, employeeDto);
-    }
-
-    //Delete API
-    @DeleteMapping("/employees/{id}/delete")
-    public String deleteEmployee(@PathVariable Long id) {
-        return employeeService.deleteEmployee(id);
-    }
 }
