@@ -12,7 +12,11 @@ public class UserController {
 
     @GetMapping("/register")
     public String showForm(Model model) {
-        model.addAttribute("user", new UserDto());
+        UserDto attributeValue = new UserDto();
+        model.addAttribute("user", attributeValue);
+        model.addAttribute("user", attributeValue);
+        model.addAttribute("user", attributeValue);
+        model.addAttribute("user", attributeValue);
         return "register";
     }
 
