@@ -1,5 +1,6 @@
 package com.example.employee.portal.controller;
 
+import com.example.employee.portal.aspect.Authorize;
 import com.example.employee.portal.domain.EmployeeDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +13,10 @@ import java.util.List;
 public class EmployeeController {
 
     @GetMapping("/hello")
+    @Authorize
     public String hello(Model model) {
         model.addAttribute("message", "Hello World!");
-        List<EmployeeDto> employees = new ArrayList<>();
-        employees.add(new EmployeeDto("John Doe", "Software Engineer", "1234567890"));
-        employees.add(new EmployeeDto("Jane Doe", "Software Engineer", "1234567890"));
-        employees.add(new EmployeeDto("Jane Doe", "Software Engineer", "1234567890"));
-        employees.add(new EmployeeDto("Jane Doe", "Software Engineer", "1234567890"));
-        employees.add(new EmployeeDto("Jane Doe", "Software Engineer", "1234567890"));
-        model.addAttribute("employees", employees);
+//        model.addAttribute("employees", employees);
         return "helloworldview";
     }
 

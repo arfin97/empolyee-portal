@@ -43,7 +43,9 @@ public class EmployeeService {
         }
 
         if (employeeOptional.isPresent()) {
+            // Getting the employee entity
             EmployeeEntity employeeEntity = employeeOptional.get();
+            // MAPPING ENTITY TO DTO
             employeeDto.setName(employeeEntity.getName());
             employeeDto.setDesignation(employeeEntity.getDesignation());
             employeeDto.setPhoneNumber(employeeEntity.getPhoneNumber());
